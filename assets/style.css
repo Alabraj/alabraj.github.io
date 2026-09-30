@@ -1,0 +1,78 @@
+@font-face{font-family:"Plex Arabic";font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Plex Arabic";font-weight:600;font-display:swap;src:url(/assets/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Plex Arabic";font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+2022,U+00B7,U+00A9}
+@font-face{font-family:"Plex Arabic";font-weight:600;font-display:swap;src:url(/assets/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+2022,U+00B7,U+00A9}
+
+:root{
+  --navy:#16304E; --navy-deep:#0d1f35; --slate:#7E8A9E; --mist:#BCC5D1; --cloud:#E7EAEE;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  font-family:"Plex Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  color:var(--cloud);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 42%, #1f4169 0%, transparent 70%),
+    linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%);
+  background-color:var(--navy);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  flex:1 0 auto;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:max(48px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));text-align:center;overflow:hidden;
+}
+
+/* soft broadcast rings behind the logo */
+.signal{position:absolute;top:44%;left:50%;width:0;height:0;pointer-events:none}
+.signal span{
+  position:absolute;left:50%;top:50%;width:min(90vw,720px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(188,197,209,.14);transform:translate(-50%,-50%) scale(.35);opacity:0;
+  animation:pulse 7.5s cubic-bezier(.2,.6,.3,1) infinite;
+}
+.signal span:nth-child(2){animation-delay:2.5s}
+.signal span:nth-child(3){animation-delay:5s}
+@keyframes pulse{0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+
+.logo{position:relative;margin:0;width:min(600px,84vw);width:min(600px,84vw,calc(52vh * 1.63));width:min(600px,84vw,calc(52svh * 1.63));line-height:0}
+.logo img{width:100%;height:auto;display:block}
+
+.rule{position:relative;width:64px;height:1px;margin:64px auto 40px;background:linear-gradient(90deg,transparent,var(--mist),transparent)}
+
+.soon-en{
+  position:relative;margin:0;font-weight:600;text-transform:uppercase;
+  font-size:clamp(1.6rem,4.4vw,2.5rem);letter-spacing:.42em;padding-left:.42em; /* balance tracking */
+  color:#fff;
+}
+.soon-ar{
+  position:relative;margin:.5rem 0 0;font-weight:600;
+  font-size:clamp(2.1rem,6vw,3.3rem);color:var(--mist);line-height:1.4;
+}
+footer{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:20px 16px max(28px,env(safe-area-inset-bottom));font-size:.8rem;color:rgba(188,197,209,.55);text-align:center;
+}
+
+/* gentle entrance */
+.logo,.rule,.soon-en,.soon-ar{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.rule{animation-delay:.15s}.soon-en{animation-delay:.25s}.soon-ar{animation-delay:.35s}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important}
+  .signal{display:none}
+}
+@media (max-width:480px){
+  .rule{margin:48px auto 32px}
+}
+@media (max-width:360px){
+  .soon-en{letter-spacing:.3em;padding-left:.3em}
+}
+@media (max-height:500px) and (orientation:landscape){
+  .wrap{padding-top:max(20px,env(safe-area-inset-top));padding-bottom:12px}
+  .logo{width:calc(40vh * 1.63);width:calc(40svh * 1.63)}
+  .rule{margin:20px auto 16px}
+  .soon-en{font-size:1.35rem}
+  .soon-ar{font-size:1.9rem;margin-top:.15rem}
+  footer{padding-top:8px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+}
